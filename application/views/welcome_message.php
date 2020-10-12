@@ -8,52 +8,55 @@
 	</head>
 	<body>
 		<div class="container">
+			<!-- Título de oa página -->
 			<div class="row">
-				<h1>CRUD EN CODEIGNITER 3</h1>
+				<h2>CRUD EN CI 3</h2>
 			</div>
 
+			<!-- Formulario -->
 			<div class="mb-5">
-				<?php echo form_open('welcome/agregar', array('id'=>'formulario-persona')); ?>
+				<?php echo form_open('welcome/agregar', ['id' => 'form-persona']); ?>
 					<div class="row">
 						<div class="form-group col-sm-4">
 							<label for="">Nombre</label>
-							<input type="text" name="nombre" class="form-control" placeholder="Nombre" required id="nombre">
+							<input type="text" name="nombre" class="form-control" required placeholder="Nombre" id="nombre">
 						</div>
 						<div class="form-group col-sm-4">
 							<label for="">Apellido paterno</label>
-							<input type="text" name="ap" class="form-control" placeholder="Apellido paterno" required id="ap">
+							<input type="text" name="ap" class="form-control" required placeholder="Apellido paterno" id="ap">
 						</div>
 						<div class="form-group col-sm-4">
-							<label for="">Apellido materno</label>
-							<input type="text" name="am" class="form-control" placeholder="Apellido materno" required id="am">
+							<label for="">Apellido matenro</label>
+							<input type="text" name="am" class="form-control" required placeholder="Apellido materno" id="am">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-4">
 							<label for="">Fecha de nacimiento</label>
-							<input type="date" name="fecha_nacimiento" class="form-control" required id="fn">
+							<input type="date" name="fn" class="form-control" required id="fn">
 						</div>
 						<div class="form-group col-sm-4">
 							<label for="">Genero</label>
-							<input type="text" name="genero" class="form-control" placeholder="F o M" required id="genero">
+							<input type="text" name="genero" class="form-control" required placeholder="F o M" id="genero">
 						</div>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block">Guardar</button>
 				<?php echo form_close(); ?>
 			</div>
 
+			<!-- Tabla de datos -->
 			<div class="row">
 				<div class="card col-12">
 					<div class="card-header">
-						<h2>Tabla de personas registradas</h2>
+						<h4>Tabla de personas</h4>
 					</div>
 					<div class="card-body">
 						<table class="table table-striped">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">Nombre completo</th>
-									<th scope="col">Fech. Nacimiento</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Fecha de nacimiento</th>
 									<th scope="col">Genero</th>
 									<th scope="col">Editar</th>
 									<th scope="col">Eliminar</th>
@@ -67,10 +70,10 @@
 											<tr>
 												<td>'.++$count.'</td>
 												<td>'.$persona->nombre.' '.$persona->ap.' '.$persona->am.'</td>
-												<td>'.$persona->fecha_nacimiento.'</td>
+												<td>'.$persona->fn.'</td>
 												<td>'.$persona->genero.'</td>
-												<td><button type="button" class="btn btn-warning text-white" onclick="colocar_datos('.$persona->id.', `'.$persona->nombre.'`, `'.$persona->ap.'`, `'.$persona->am.'`, `'.$persona->fecha_nacimiento.'`, `'.$persona->genero.'`);">Editar</button></td>
-												<td> <a type="button" class="btn btn-danger" href="'.base_url('welcome/eliminar/'.$persona->id).'">Eliminar</a> </td>
+												<td><button type="button" class="btn btn-warning text-white" onclick="llenar_datos('.$persona->id.', `'.$persona->nombre.'`, `'.$persona->ap.'`, `'.$persona->am.'`, `'.$persona->fn.'`, `'.$persona->genero.'`)">Editar</button></td>
+												<td><a href="'.base_url('welcome/eliminar/'.$persona->id).'" type="button" class="btn btn-danger">Eliminar</a></td>
 											</tr>
 										';
 									}
@@ -82,15 +85,17 @@
 			</div>
 		</div>
 		<script>
-			let url_editar = '<?php echo base_url('welcome/editar/'); ?>';
-			function colocar_datos(id, nombre, ap, am, fecha_nacimiento, genero) {
-				document.getElementById('formulario-persona').setAttribute('action', url_editar+id)
+			let url = "<?php echo base_url('welcome/editar'); ?>";
+			const llenar_datos = (id, nombre, ap, am, fn, genero) => {
+				let path = url+"/"+id;
+				document.getElementById('form-persona').setAttribute('action', path);
 				document.getElementById('nombre').value = nombre;
 				document.getElementById('ap').value = ap;
 				document.getElementById('am').value = am;
-				document.getElementById('fn').value = fecha_nacimiento;
+				document.getElementById('fn').value = fn;
 				document.getElementById('genero').value = genero;
-			}
+			};
+		
 		</script>
 	</body>
 </html>

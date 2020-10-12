@@ -1,26 +1,24 @@
 <?php 
     class Persona extends CI_Model {
-        private $tabla = 'personas';
-        
-        public function agregar($persona) {
-            $this->db->insert($this->tabla, $persona);
-        }
 
-        public function obtener_datos() {
+        public function agregar($persona) {
+            $this->db->insert('personas', $persona);
+        }//end agregar
+
+        public function seleccionar_todo() {
             $this->db->select('*');
-            $this->db->from($this->tabla);
+            $this->db->from('personas');
             return $this->db->get()->result();
-        }
+        }//end seleccionar_todo
 
         public function eliminar($id_persona) {
             $this->db->where('id', $id_persona);
-            $this->db->delete($this->tabla);
-        }
+            $this->db->delete('personas');
+        }//end eliminar
 
-        public function editar($persona, $id_persona) {
+        public function actualizar($persona, $id_persona) {
             $this->db->where('id', $id_persona);
-            $this->db->update($this->tabla, $persona);
-        }
-    }
-    
+            $this->db->update('personas', $persona);
+        }//end actualizar
+    }//end Class Persona
 ?>
